@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Holafly - Page 404</title>
+    <meta name="description" content="🤓">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="Canvas">
+    <meta name="color-scheme" content="light dark">
+    <link rel='stylesheet' id='reset-css' href='https://cdn-esimholafly2.pressidium.com/wp-content/themes/Holafly_v2-child/recursos/css/reset.css?ver=2.9.997' type='text/css' media='all' />
+    <link rel='stylesheet' id='main-css' href='https://cdn-esimholafly2.pressidium.com/wp-content/themes/Holafly_v2-child/recursos/css/main.css?ver=2.9.997' type='text/css' media='all' />
+    <!--https://fonts.google.com/specimen/Mulish#styles-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;400;700;800&display=swap" rel="stylesheet">
+    <!--link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml"-->
+    <link rel="stylesheet" href="404-style-min.css">
+  </head>
+  <body>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+    <header class="holafly-layout" style="position:absolute;">
+        <img src="assets/Navbar-Holafly.png">
+    </header>
+    
+    <!--Init Holafly 404 Page-->
+    <section class="p404">
+        <div id="p404__parallax-container">
+            <article class="p404__parallax-scene">
+                <figure class="p404__parallax-layer msg404" data-depth="0.08">
+                    <h1>404</h1>
+                    <!--img src="assets/404_message_back.png" /-->
+                </figure>
+                <figure class="p404__parallax-layer cloudFront" data-depth="0.2">
+                    <img src="assets/404_cloud_front.png" />
+                </figure>
+                <figure class="p404__parallax-layer cloudBack" data-depth="0.44">
+                    <img src="assets/404_cloud_back.png" />
+                </figure>
+                <figure class="p404__parallax-layer sailor" data-depth="0.66">
+                    <img src="assets/404_sailor_holafly.png" />
+                </figure>
+                <aside>
+                    <h2>Oops! It looks like you've lost your way.</h2>
+                    <p>The page you're looking for isn't here. <strong>But don't worry</strong>, that doesn't mean you should give up. There's still plenty to see and explore.</p>
+                    <a class="blank" href="#">Contact Us</a>
+                    <a href="#">Destinations</a>
+                </aside>
+            </article>
+        </div>
+    </section>
+    <!--End Page 404-->
+
+    <footer class="holafly-layout infront">
+        <img src="assets/FooterDesk.png">
+    </footer>
+
+    <script type="text/javascript">
+        
+        var parallaxBox = $('#p404__parallax-container');
+        var strength = 0.2,
+        isMobile = false;
+
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+            isMobile = true;
+        }
+
+
+        function parallaxMove(parallaxContainer, x, y, boxWidth, boxHeight) {
+            $(parallaxContainer).find('.p404__parallax-layer').each(function () {
+                var depth = $(this).data('depth');
+                var moveX = ((boxWidth / 2) - x) * (strength * depth);
+                var moveY = ((boxHeight / 2) - y) * (strength * depth);
+
+                $(this).css({ transform: "translate3d(" + moveX + "px, " + moveY + "px, 0)" });
+                $(this).removeClass('is-out');
+            });
+        }
+
+
+        if (!isMobile) {
+
+            parallaxBox.mousemove(function (event) {
+                event.stopPropagation();
+                event = event || window.event;
+                var x = Math.floor(event.clientX - $(this).offset().left),
+                y = Math.floor(event.clientY - $(this).offset().top),
+                boxWidth = $(this).width(),
+                boxHeight = $(this).height();
+
+                parallaxMove(this, x, y, boxWidth, boxHeight);
+
+            });
+
+        } else if (isMobile) {
+
+            window.addEventListener("deviceorientation", function (event) {
+                event.stopPropagation();
+                event = event || window.event;
+
+                var rotatedY = Math.min(Math.max(parseInt(Math.floor(event.gamma)), -45), 45),
+                rotatedX = Math.min(Math.max(parseInt(Math.floor(event.beta)), -45), 45),
+                boxWidth = parallaxBox.width(),
+                boxHeight = parallaxBox.height();
+
+                var moveX = ((boxWidth / 2) * rotatedY) / 45;
+                var moveY = ((boxWidth / 2) * rotatedX) / 45;
+
+                parallaxMove(parallaxBox, moveX, moveY, boxWidth, boxHeight);
+
+            });
+        }
+
+    </script>
+  </body>
+</html>
